@@ -42,6 +42,22 @@ class Form extends Wrapper {
             }
         });
     }
+    
+    reset() {
+        var fields = reduceRefs(this.refs);
+
+        Object.keys(fields).forEach(function(key) {
+            var field = fields[key];
+
+            if (Array.isArray(field)) {
+                field.forEach(function(child) {
+                    child.reset();
+                });
+            } else {
+                field.reset();
+            }
+        });
+    }
 
     onSubmit(evt) {
         if (!this.props.preventDefault)
